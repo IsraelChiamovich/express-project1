@@ -1,9 +1,9 @@
 // src/server.ts
 
 import exp, { Express } from "express";
-import authController from "./controllers/authController.js";
-import userController from "./controllers/userController.js";
-import postController from "./controllers/postController.js"
+import authController from "./controllers/authController";
+import userController from "./controllers/userController";
+import postController from "./controllers/postController"
 import "dotenv/config";
 
 const app: Express = exp();
