@@ -1,6 +1,24 @@
 // src/controllers/postController.ts
 
-import exp, { Router } from "express";
-const router:Router = exp.Router();
+import { Request, Response } from "express";
+import PostService from "../services/postService";
 
-export default router
+class PostController {
+    async create(req: Request, res: Response): Promise<void> {
+        try {
+            const { authorId, content, hashtag } = req.body;
+            await PostService.createNewPost({ authorId, content, hashtag });
+            res.status(201).json({
+                err: false,
+                message: "Post created successfully!",
+            });
+        } catch (err) {
+            res.status(500).json({
+                err: true,
+                message: (err as Error).message,
+            });
+        }
+    }
+}
+
+export default new PostController();

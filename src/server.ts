@@ -1,17 +1,20 @@
 // src/server.ts
 
-import exp, { Express } from "express";
-import authController from "./controllers/authController";
-import userController from "./controllers/userController";
-import postController from "./controllers/postController"
+import express, { Express } from "express";
+import userRouter from "./routes/userRouter";
+import postRouter from "./routes/postRouter";
 import "dotenv/config";
 
-const app: Express = exp();
+const app: Express = express();
 
-app.use("/auth", authController);
-app.use("/user", userController);
-app.use("/post", postController);
+app.use(express.json());
 
-app.listen(process.env.PORT, (): void => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+// שימוש בראוטרים המופרדים
+app.use("/user", userRouter);
+app.use("/post", postRouter);
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, (): void => {
+    console.log(`Server is running on port ${PORT}`);
 });

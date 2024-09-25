@@ -1,5 +1,4 @@
 "use strict";
-// src/controllers/authController.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,29 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const router = express_1.default.Router();
-router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.saveFileData = exports.getFileData = void 0;
+// src/config/fileDataLayer.ts
+const promises_1 = __importDefault(require("fs/promises"));
+const getFileData = (resource) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            res.status(400).json({
-                err: true,
-                message: "Email and password are required",
-            });
-            return;
-        }
-        res.status(200).json({
-            err: false,
-            message: "Login successful!",
-        });
+        const data = yield promises_1.default.readFile(`${__dirname}/../../data/${resource}.json`, 'utf-8');
+        const parsedData = JSON.parse(data);
+        return parsedData;
     }
     catch (err) {
-        res.status(500).json({
-            err: true,
-            message: err.message,
-        });
+        throw err;
     }
-}));
-exports.default = router;
-//# sourceMappingURL=authController.js.map
+});
+exports.getFileData = getFileData;
+const saveFileData = (resource, data) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const stringifiedData = JSON.stringify(data);
+        yield promises_1.default.writeFile(`${__dirname}/../../data/${resource}.json`, stringifiedData, { encoding: 'utf-8' });
+    }
+    catch (err) {
+        throw err;
+    }
+});
+exports.saveFileData = saveFileData;
+//# sourceMappingURL=fileDataLayer.js.map

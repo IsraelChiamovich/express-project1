@@ -1,5 +1,5 @@
 "use strict";
-// src/controllers/postController.ts
+// src/services/userService.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,26 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const postService_1 = __importDefault(require("../services/postService"));
-class PostController {
-    create(req, res) {
+const userModel_1 = __importDefault(require("../models/userModel"));
+const fileDataLayer_1 = require("../config/fileDataLayer");
+class UserService {
+    static createNewUser(newUser) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { authorId, content, hashtag } = req.body;
-                yield postService_1.default.createNewPost({ authorId, content, hashtag });
-                res.status(201).json({
-                    err: false,
-                    message: "Post created successfully!",
-                });
+            const { username, password, email, birthday, avatarUrl } = newUser;
+            const user = new userModel_1.default(username, password, email, birthday, avatarUrl);
+            const users = yield (0, fileDataLayer_1.getFileData)('users');
+            if (!users) {
+                throw new Error('users not found');
             }
-            catch (err) {
-                res.status(500).json({
-                    err: true,
-                    message: err.message,
-                });
-            }
+            users.push(user);
+            yield (0, fileDataLayer_1.saveFileData)('users', users);
         });
     }
 }
-exports.default = new PostController();
-//# sourceMappingURL=postController.js.map
+exports.default = UserService;
+//# sourceMappingURL=userService.js.map
