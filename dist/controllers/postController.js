@@ -33,6 +33,59 @@ class PostController {
             }
         });
     }
+    getAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const posts = yield postService_1.default.getAllPosts();
+                res.status(200).json({
+                    err: false,
+                    posts,
+                });
+            }
+            catch (err) {
+                res.status(500).json({
+                    err: true,
+                    message: err.message,
+                });
+            }
+        });
+    }
+    getPostBySearch(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const contentSearch = req.query.content; // תוקן שם המשתנה מ-contentSerch ל-contentSearch
+                const posts = yield postService_1.default.getPostByWord(contentSearch);
+                res.status(200).json({
+                    err: false,
+                    posts,
+                });
+            }
+            catch (err) {
+                res.status(500).json({
+                    err: true,
+                    message: err.message,
+                });
+            }
+        });
+    }
+    getPostById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = req.params.id;
+                const post = yield postService_1.default.getPostById(id);
+                res.status(200).json({
+                    err: false,
+                    post,
+                });
+            }
+            catch (err) {
+                res.status(500).json({
+                    err: true,
+                    message: err.message,
+                });
+            }
+        });
+    }
 }
 exports.default = new PostController();
 //# sourceMappingURL=postController.js.map

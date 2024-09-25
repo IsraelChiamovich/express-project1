@@ -28,6 +28,44 @@ class PostService {
             yield (0, fileDataLayer_1.saveFileData)('posts', posts);
         });
     }
+    static getAllPosts() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const posts = yield (0, fileDataLayer_1.getFileData)('posts');
+                return posts;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    static getPostById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const posts = yield (0, fileDataLayer_1.getFileData)('posts');
+                const post = posts.find(post => post.id === id);
+                if (!post) {
+                    throw new Error('post not found');
+                }
+                return post;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
+    static getPostByWord(word) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const posts = yield (0, fileDataLayer_1.getFileData)('posts');
+                const filteredPosts = posts.filter(post => post.content.includes(word));
+                return filteredPosts;
+            }
+            catch (err) {
+                throw err;
+            }
+        });
+    }
 }
 exports.default = PostService;
 //# sourceMappingURL=postService.js.map

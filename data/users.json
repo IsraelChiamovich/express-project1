@@ -1,14 +1,1 @@
-[
-  {
-    "username": "Jonny",
-    "password": "LoMgaleh",
-    "email": "jonny@jo.com",
-    "birthday": "1975-08-19T23:15:30.000Z",
-    "avatarUrl": "https://randomuser.me/api/portraits/men/28.jpg",
-    "followers": [],
-    "following": [],
-    "isLockedAccount": false,
-    "token": "",
-    "id": "950310de-9daa-42e8-91aa-e93048ac1c59"
-  }
-]
+[{"username":"Jonny","password":"LoMgaleh","email":"jonny@jo.com","birthday":"1975-08-19T23:15:30.000Z","avatarUrl":"https://randomuser.me/api/portraits/men/28.jpg","followers":[],"following":[],"isLockedAccount":false,"token":"","id":"950310de-9daa-42e8-91aa-e93048ac1c59"},{"username":"Jonny","password":"LoMgaleh","email":"jonny@jo.com","birthday":"1975-08-19T23:15:30.000Z","avatarUrl":"https://randomuser.me/api/portraits/men/28.jpg","followers":[],"following":[],"isLockedAccount":false,"token":"","id":"90a20d1f-780c-45e5-9d7b-2b7a152d4e24"}]
