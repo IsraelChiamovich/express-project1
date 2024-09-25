@@ -28,6 +28,21 @@ class UserService {
             yield (0, fileDataLayer_1.saveFileData)('users', users);
         });
     }
+    static followUser(followerId, followingId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const users = yield (0, fileDataLayer_1.getFileData)('users');
+            const user = users.find(user => user.id === followingId);
+            const userToFollow = users.find(user => user.id === followerId);
+            if (!user || !userToFollow) {
+                throw new Error('user not found');
+            }
+            if (!user.followers.includes(followerId)) {
+                user.followers.push(followerId);
+                userToFollow.following.push(followingId);
+                yield (0, fileDataLayer_1.saveFileData)('users', users);
+            }
+        });
+    }
 }
 exports.default = UserService;
 //# sourceMappingURL=userService.js.map

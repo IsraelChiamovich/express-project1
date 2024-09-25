@@ -20,6 +20,22 @@ class UserController {
             });
         }
     }
+
+    async follow(req: Request, res: Response): Promise<void> {
+        try {
+            const {userId, followingId} = req.body
+            await UserService.followUser(userId, followingId)
+            res.status(200).json({
+                err: false,
+                message: "User followed successfully!",
+            });
+        } catch (err) {
+            res.status(500).json({
+                err: true,
+                message: (err as Error).message,
+            });
+        }
+    }
 }
 
 export default new UserController();

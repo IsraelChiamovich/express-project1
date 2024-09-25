@@ -16,6 +16,24 @@ class UserService {
            users.push(user)
            await saveFileData('users', users)
     }
+
+    public static async followUser(followerId: string, followingId: string): Promise<void> {
+        const users: User[] = await getFileData<User>('users')
+        const user = users.find(user => user.id === followingId)
+        const userToFollow = users.find(user => user.id === followerId)
+
+        if (!user || !userToFollow) {
+            throw new Error('user not found')
+        }
+
+        if(!user.followers.includes(followerId)) {
+            user.followers.push(followerId)
+            userToFollow.following.push(followingId)
+
+            await saveFileData('users', users)
+        }
+
+    }
 }
 
 export default UserService

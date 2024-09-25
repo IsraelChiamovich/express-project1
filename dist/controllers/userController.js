@@ -33,6 +33,24 @@ class UserController {
             }
         });
     }
+    follow(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { userId, followingId } = req.body;
+                yield userService_1.default.followUser(userId, followingId);
+                res.status(200).json({
+                    err: false,
+                    message: "User followed successfully!",
+                });
+            }
+            catch (err) {
+                res.status(500).json({
+                    err: true,
+                    message: err.message,
+                });
+            }
+        });
+    }
 }
 exports.default = new UserController();
 //# sourceMappingURL=userController.js.map
